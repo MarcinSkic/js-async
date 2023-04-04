@@ -8,8 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-["cats", "dogs", "mosqitoes"].forEach((query) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield fetch(`https://api.giphy.com/v1/gifs/translate?api_key=y4ULTrA90itnKSg8Vb6xA30HsIOyNdxf&s=${query}`, { mode: "cors" });
-    const json = yield response.json();
-    console.log(json);
+function asyncForEach() {
+    ["cats", "dogs", "mosqitoes"].forEach((query) => __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`https://api.giphy.com/v1/gifs/translate?api_key=y4ULTrA90itnKSg8Vb6xA30HsIOyNdxf&s=${query}`, { mode: "cors" });
+        const json = yield response.json();
+        console.log(json);
+    }));
+}
+function testPromises() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (true) {
+            return yield 1;
+        }
+        else {
+            return Promise.reject(5);
+        }
+    });
+}
+console.log(testPromises().catch((reason) => {
+    console.log(reason);
 }));

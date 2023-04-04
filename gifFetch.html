@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GIF fetch</title>
+    </head>
+    <body>
+        <img src="#" />
+        <form action="#">
+            <input
+                type="search"
+                name="search"
+                id="search"
+                value="cats"
+                placeholder="Find gif..."
+            />
+            <button id="fetch" type="submit">New fetch</button>
+        </form>
+
+        <script>
+            const image = document.querySelector("img");
+            const searchBar = document.querySelector("input[type='search']");
+            const form = document.querySelector("form");
+
+            const doFetch = function doFetch() {
+                fetch(
+                    `https://api.giphy.com/v1/gifs/translate?api_key=y4ULTrA90itnKSg8Vb6xA30HsIOyNdxf&s=${searchBar.value}`,
+                    {
+                        mode: "cors",
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((response) => {
+                        image.src = response.data.images.original.url;
+                        console.log(response.data);
+                    })
+                    .catch(() => {
+                        alert("Couldn't find GIF based on that search :(");
+                    });
+            };
+
+            form.addEventListener("submit", (event) => {
+                doFetch();
+                event.preventDefault();
+            });
+
+            doFetch();
+        </script>
+    </body>
+</html>
